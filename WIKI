@@ -1,0 +1,53 @@
+ProjectA
+│
+├── src
+│   ├── main
+│   │   └── java
+│   │       └── org
+│   │           └── example
+│   │               └── pages
+│   │                   └── FacebookSearchPage.java
+│   └── test
+│       └── java
+│           └── org
+│               └── example
+│                   ├── tests
+│                   │   └── FBSearchTest.java
+│                   └── utils
+│                       └── BaseTest.java
+└── pom.xml
+
+SDK and Java Versions
+SDK Version: 20
+Java Version: 1.8.0_411
+Maven Version: 3.9.6
+Maven Home: C:\Program Files\Maven\apache-maven-3.9.6
+Java Runtime: C:\Program Files\Java\jdk 20.0.2
+
+Key Classes
+FacebookSearchPage.java: Located under src/main/java/org/example/pages. Contains methods to automate Google search operations.
+FBSearchTest.java: Found under src/test/java/org/example/tests. It holds the test case that performs a search and verifies the results using JUnit.
+BaseTest.java: Located in src/test/java/org/example/utils. It contains common setup and teardown logic for all tests, including WebDriver initialization.
+
+Dependencies (pom.xml)
+Selenium Java (4.11.0)
+WebDriverManager (5.5.0) for managing browser drivers.
+JUnit (4.13.2) for unit testing.
+SLF4J (2.0.0) for logging.
+
+
+Running Tests
+Make sure to set up your environment with SDK version 20.
+Ensure the ChromeDriver is correctly placed in src/drivers/.
+Use the Maven command to run the tests from the terminal
+
+mvn -Dtest=FBSearchTest test
+
+
+Troubleshooting
+If facing version compatibility issues, check the Java and Maven versions.
+Ensure all dependencies are correctly configured in pom.xml.
+If encountering a NoClassDefFoundError, verify the proper inclusion of dependencies (JUnit, Selenium, etc.).
+
+
+This wiki can be expanded with additional troubleshooting steps or specific instructions for different platforms.
