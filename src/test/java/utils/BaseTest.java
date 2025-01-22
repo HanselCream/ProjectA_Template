@@ -6,26 +6,41 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+
+import pages.BrowserUtil;
+import pages.DentsplyPage;
 import pages.FacebookSearchPage;
+
 
 public class BaseTest {
     public WebDriver driver;
     public WebDriverWait wait;
     public FacebookSearchPage facebookSearchPage;
+    public DentsplyPage dentsplyPage;
+    public BrowserUtil browserUtil;
+
+
+    public void waitABit(int num) {
+        try {
+            Thread.sleep(1500);
+            Thread.sleep(num);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 
     @Before
     public void setUp() {
         // Set the path to the ChromeDriver executable
-        System.setProperty("webdriver.chrome.driver", "C:/Users/radam/IdeaProjects/ProjectA/src/drivers/chromedriver.exe");
-
-        // Initialize the ChromeDriver
+        System.setProperty("chromedriver", "C:/Users/radam/IdeaProjects/ProjectA/src/drivers/chromedriver.exe");
         driver = new ChromeDriver();
-
-        // Initialize WebDriverWait with 10 seconds timeout
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // Initialize FacebookSearchPage with the WebDriver instance
         facebookSearchPage = new FacebookSearchPage(driver, wait);
+        dentsplyPage = new DentsplyPage(driver, wait);
+        browserUtil = new BrowserUtil(driver, wait);
+
+
     }
 
     @After

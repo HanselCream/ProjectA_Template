@@ -3,18 +3,14 @@ ProjectA
 ├── src
 │   ├── main
 │   │   └── java
-│   │       └── org
-│   │           └── example
-│   │               └── pages
-│   │                   └── FacebookSearchPage.java
+│   │          └── pages
+│   │               └── DentsplyPage.java
 │   └── test
 │       └── java
-│           └── org
-│               └── example
-│                   ├── tests
-│                   │   └── FBSearchTest.java
-│                   └── utils
-│                       └── BaseTest.java
+              ├── tests
+│             │   └── DentsplyTest.java
+│             └── utils
+│             └── BaseTest.java
 └── pom.xml
 
 SDK and Java Versions
