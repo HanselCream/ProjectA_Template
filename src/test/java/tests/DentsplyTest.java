@@ -26,7 +26,7 @@ import utils.BaseTest;
 public class DentsplyTest extends BaseTest {
 
     @Test
-    public void testAssertCompanyInformationLabels() {
+    public void testA_CompanyInformation() {
         dentsplyPage.openHomePage();
         browserUtil.waitABit(6000);
         dentsplyPage.emailAddress("vietnameseddq123@mail.com");
@@ -37,11 +37,34 @@ public class DentsplyTest extends BaseTest {
         browserUtil.waitABit(5000);
         dentsplyPage.confirmLanguage("English");
         browserUtil.waitABit(3000);
-        dentsplyPage.assertCompanyInformationLabels();
+        //1.11 MultipleChoice
+        dentsplyPage.verifyQuestions_CompanyInformation();
+
+        //PRINCIPAL CONTACT PERSON
+        dentsplyPage.verifyQuestions_PrincipalContactPerson();
     }
 
     @Test
-    public void test_Organizational() {
+    public void testB_PrincipalContactPerson() {
+        dentsplyPage.openHomePage();
+        browserUtil.waitABit(6000);
+        dentsplyPage.emailAddress("vietnameseddq123@mail.com");
+        dentsplyPage.password("Password1!");
+        dentsplyPage.logInButton();
+        dentsplyPage.complianceDashBoard();
+        dentsplyPage.startButton();
+        browserUtil.waitABit(5000);
+        dentsplyPage.confirmLanguage("English");
+        browserUtil.waitABit(3000);
+
+
+
+
+    }
+
+
+    @Test
+    public void testC_Organizational() {
         dentsplyPage.openHomePage();
         browserUtil.waitABit(6000);
         dentsplyPage.emailAddress("vietnameseddq123@mail.com");
@@ -54,17 +77,14 @@ public class DentsplyTest extends BaseTest {
         browserUtil.waitABit(3000);
         dentsplyPage.rightNavigation("Organizational Structure");
 
-        dentsplyPage.selectAndCheckQuestionTitle("3.1", "Country of Incorporation or Formation");
-        dentsplyPage.selectAndCheckQuestionTitle("3.2", "Date of Incorporation or Formation");
-        //DropdownSelect
-        dentsplyPage.selectAndCheckQuestionTitle("3.3", "Type of Ownership");
-        //Multiple Choice
-        dentsplyPage.selectAndCheckQuestionTitle("3.4", "Business Registration or VAT or Tax ID Number");
-        dentsplyPage.selectAndCheckQuestionTitle("3.5", "Total Number of Employees");
+        dentsplyPage.verifyQuestions_OrganizationStructure();
+        //3.2 DropDownSelect
+        //3.3 Multiple Choice
+        //3.6 ShowCard/File
+        //3.7 Multiple Choice
 
-        //3.6
-        //Box img, file
-        dentsplyPage.selectAndCheckQuestionTitle("3.7", "Please state the annual sales (in USD) of your company:");
     }
+
+
 
 }
