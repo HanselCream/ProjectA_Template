@@ -38,7 +38,12 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
-
+        <!-- Logback Classic dependency -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.16</version>  <!-- Use the appropriate version -->
+        </dependency>
         <!-- SLF4J Logger -->
         <dependency>
             <groupId>org.slf4j</groupId>

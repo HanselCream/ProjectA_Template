@@ -1,0 +1,12 @@
+<suite name="CustomTestSuite" verbose="1">
+    <test name="SelectedTests">
+        <classes>
+            <class name="tests.DentsplyTest">
+                <methods>
+                    <include name="testAssertCompanyInformationLabels"/>
+                    <include name="testDashBoard"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
