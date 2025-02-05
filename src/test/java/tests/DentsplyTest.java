@@ -1,8 +1,11 @@
 package tests;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import utils.BaseTest;
-import org.testng.annotations.Test;
+
+
 
 // mvn -Dtest=DentsplyTest test
 // mvn -Dtest=DentsplyTest#testLogin test
@@ -11,7 +14,7 @@ import org.testng.annotations.Test;
 //mvn test -Dtest=DentsplyTest#testAssertCompanyInformationLabels
 //mvn test -Dtest=DentsplyTest#testB_Organizational
 
-//RUN ON TERMINA
+//RUN ON TERMINAL
 //Use Maven to run the TestNG suite:
 // mvn test -DsuiteXmlFile=testng.xml
 
@@ -23,10 +26,10 @@ import org.testng.annotations.Test;
 //start target\surefire-reports\index.html
 
 
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DentsplyTest extends BaseTest {
 
-    @Test(priority = 1)
+    @Test
     public void testA_CompanyInformation() {
         dentsplyPage.openHomePage();
         browserUtil.waitABit(6000);
@@ -46,7 +49,24 @@ public class DentsplyTest extends BaseTest {
 
     }
 
-    @Test(priority = 1)
+    @Test
+    public void test0_AllBlankFieldsAnswer() {
+        dentsplyPage.openHomePage();
+        browserUtil.waitABit(6000);
+        dentsplyPage.emailAddress("vietnameseddq123@mail.com");
+        dentsplyPage.password("Password1!");
+        dentsplyPage.logInButton();
+        dentsplyPage.complianceDashBoard();
+        dentsplyPage.startButton();
+        browserUtil.waitABit(5000);
+        dentsplyPage.confirmLanguage("English");
+        browserUtil.waitABit(3000);
+        dentsplyPage.addTextOnBlankFields();
+
+        dentsplyPage.clickOnSaveProgress();
+    }
+
+    @Test
     public void testB_Organizational() {
         dentsplyPage.openHomePage();
         browserUtil.waitABit(6000);
@@ -66,6 +86,32 @@ public class DentsplyTest extends BaseTest {
         //3.6 ShowCard/File
         //3.7 Multiple Choice
     }
+
+    @Test
+    public void testC_Shareholders() {
+        dentsplyPage.openHomePage();
+        browserUtil.waitABit(6000);
+        dentsplyPage.emailAddress("vietnameseddq123@mail.com");
+        dentsplyPage.password("Password1!");
+        dentsplyPage.logInButton();
+        dentsplyPage.complianceDashBoard();
+        dentsplyPage.startButton();
+        browserUtil.waitABit(5000);
+        dentsplyPage.confirmLanguage("English");
+        browserUtil.waitABit(3000);
+        dentsplyPage.rightNavigation("Shareholders");
+
+        dentsplyPage.verifyQuestions_Shareholders();
+
+        browserUtil.waitABit(3000);
+        dentsplyPage.rightNavigation("Other Areas of Business Interests");
+        dentsplyPage.verifyQuestions_OtherBusiness();
+
+    }
+
+
+
+
 
 
 

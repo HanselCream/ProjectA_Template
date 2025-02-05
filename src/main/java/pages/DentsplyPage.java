@@ -36,6 +36,13 @@ public class DentsplyPage {
         title.click();
     }
 
+    public void clickOnSaveProgress() {
+        WebElement saveButton = wait.until((ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='btn btn-outline-primary']"))));
+        browserUtil.waitABit(2000);
+        browserUtil.highlightScrollClick(saveButton);
+        browserUtil.waitABit(12000);
+    }
+
 
     public void waitLoadPage() {
         try {
@@ -125,21 +132,22 @@ public class DentsplyPage {
 
         } catch (TimeoutException e) {
             // Log failure in red for TimeoutException
-            log.error("\033[31m# {}: Timeout occurred while waiting for question '{}'. Error: {} \033[0m", stepNumber, questionText, e.getMessage());
+            log.error("\033[31m# {}: Timeout occurred while waiting for question '{}'. Error: {} \033[0m", stepNumber, questionText);
             // Continue the test execution without failing
         } catch (AssertionError e) {
             // Log failure in red for AssertionError
-            log.error("\033[31m# {}: Question verification failed for '{}'. Assertion failed: {} \033[0m", stepNumber, questionText, e.getMessage());
+            log.error("\033[31m# {}: Question verification failed for '{}'. Assertion failed: {} \033[0m", stepNumber, questionText);
             // Continue the test execution without failing
         } catch (Exception e) {
             // Log failure in red for other unexpected exceptions
-            log.error("\033[31m# {}: Unexpected error while verifying question '{}'. Error: {} \033[0m", stepNumber, questionText, e.getMessage());
+            log.error("\033[31m# {}: Unexpected error while verifying question '{}'. Error: {} \033[0m", stepNumber, questionText);
             // Continue the test execution without failing
         }
     }
 
-    /// //////////
-    /// //////////////////
+    //////////////////////////////// ////////////////////////
+    /// //////////////////////////////// //////////////////////
+    /// ////////////////////////////// ////////////////////////
 
     public void titleShowCard(String titleShowCard, String secondTitle) {
         try {
@@ -235,6 +243,28 @@ public class DentsplyPage {
     }
 
     /**
+     *  ANSWER 'ALL BLANK' FIELD QUESTIONS
+     */
+
+    public void addTextOnBlankFields() {
+        browserUtil.waitABit(2000);
+        List<WebElement> blankFields = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                By.xpath("//input[contains(@class,'form-control')]")));
+
+        for (int i = 0; i < blankFields.size(); i++) {
+            WebElement blankField = blankFields.get(i);
+            browserUtil.highlightScrollClick(blankField);
+            blankField.clear();
+
+            // Get text sequentially from RandomTextGenerator
+            String textToEnter = RandomTextGenerator.getTextByIndex(i);
+            blankField.sendKeys(textToEnter, Keys.ENTER);
+            browserUtil.waitABit(1000);
+        }
+    }
+
+
+    /**
      * PRINCIPAL CONTACT PERSON
      */
 
@@ -246,6 +276,10 @@ public class DentsplyPage {
      * ORGANIZATION STRUCTURE
      */
 
+    //3.2 DropDownSelect
+    //3.3 Multiple Choice
+    //3.6 ShowCard/File
+    //3.7 Multiple Choice
     public void verifyQuestions_OrganizationStructure() {
         // List of questions and corresponding step numbers
         List<String[]> questions = Arrays.asList(
@@ -266,6 +300,74 @@ public class DentsplyPage {
             selectAndCheckQuestionTitle(stepNumber, questionText);
         }
     }
+
+    /**
+     * SHAREHOLDERS
+     */
+
+    //SHOW CARD/FILE
+    // 4.2
+    // 4.3
+    // 4.5
+    // 4.6
+
+    public void verifyQuestions_Shareholders() {
+        // List of questions and corresponding step numbers
+        List<String[]> questions = Arrays.asList(
+                new String[]{"4.1", "Number of Shareholders"},
+                new String[]{"4.4", "Number of Ultimate Beneficial Owners (UBOs)"}
+        );
+
+        // Loop through each question and verify
+        for (String[] question : questions) {
+            String stepNumber = question[0];
+            String questionText = question[1];
+
+            // Call your verification method for each question
+            selectAndCheckQuestionTitle(stepNumber, questionText);
+        }
+    }
+
+
+    /**
+     * OTHER AREAS OF BUSINESS INTEREST
+     */
+
+    public void verifyQuestions_OtherBusiness() {
+        // List of questions and corresponding step numbers
+        // 5.6, 5.10, 5.17, 5.20
+        List<String[]> questions = Arrays.asList(
+                new String[]{"5.1", "Does your company intend to offer services, distribute and/or transit Dentsply Sirona products in/through Cuba, Iran, North Korea, Syria, Russia, Belarus, or the Ukrainian regions of Crimea, Donetsk, Luhansk, Zaporizhzhia, or Kherson?"},
+                new String[]{"5.2", "Does the company (including its officers, directors, principals, and owners), or any business concern controlled by the company, have any offices or other operations in Cuba, Iran, North Korea, Syria, Russia, Belarus, or the Ukrainian regions of Crimea, Donetsk, Luhansk, Zaporizhzhia, or Kherson?"},
+                new String[]{"5.3", "Does your company offer services and/or distribute products in Myanmar (Burma), Sudan, South Sudan, Central African Republic, Zimbabwe, Burundi, Lebanon, Nicaragua, Venezuela, Democratic Republic of the Congo, Iraq, Libya, Mali, Somalia, Yemen, Afghanistan, Haiti, or Moldova?"},
+                new String[]{"5.4", "Does your company intend to offer services or sell Dentsply Sirona products outside of its country of registration?"},
+                new String[]{"5.5", "Does your company intend to use sub distributors for selling/distributing Dentsply Sirona products?"},
+                new String[]{"5.7", "Has the company (including its officers, directors, principals, and owners), ever been involved, directly or indirectly, in a transaction, export, re-export or other transfer pursuant to an export license or other authorization issued by the U.S. Government?"},
+                new String[]{"5.8", "Does your company have existing contracts with or sell or market products or/and services to any government, government-controlled or military entity, including any state-owned enterprises?"},
+                new String[]{"5.9", "Is any current or former officer, director, owner, principal, or controlling person of the company (including the spouse, brother, sister, parent or child of such a person) a current or former office holder, official, or employee of any government entity?"},
+                new String[]{"5.11", "Has your company or somebody working for your company ever received a request for or provided a payment, gift or kickback to a government official?"},
+                new String[]{"5.12", "Has your company ever been a party to a legal proceeding anywhere in the world for violation of applicable anti-bribery laws or regulations?"},
+                new String[]{"5.13", "Has your company or any associated or previously associated entity, any predecessor entity or any present or former owner, manager, partner, director, officer, employee or consultant of your company been within the last ten years (10) years:  (a) suspended from doing business in any capacity; (b) charged or indicted with any criminal act; (c) the subject of any allegation or investigation of fraud, bribery, misrepresentation or similar circumstances; (d) mentioned in the press for having been involved in any improper activity; or (e) terminated by a client because of ethical or legal concerns?"},
+                new String[]{"5.14", "Has your company been involved in the last 5 years in any lawsuit or other judicial action to which the Company or any owner, partner, officer or director, has been involved, either as the plaintiff or as defendant?"},
+                new String[]{"5.15", "Are any of the owners/majority shareholders of this distributor a practicing physician or relevant member/owner of a Healthcare Organization?"},
+                new String[]{"5.18", "Does your company hire any individual or business entity that directly interact with government entities/officials?"},
+                new String[]{"5.20", "Does any officer, director or shareholder of your company have a personal, professional, or financial relationship with any Dentsply Sirona employee or a close relationship of a Dentsply Sirona employee?"}
+        );
+
+        // Loop through each question and verify
+        for (String[] question : questions) {
+            String stepNumber = question[0];
+            String questionText = question[1];
+
+            // Call your verification method for each question
+            selectAndCheckQuestionTitle(stepNumber, questionText);
+        }
+    }
+
+
+
+
+
 
 
 
