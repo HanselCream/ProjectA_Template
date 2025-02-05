@@ -1,12 +1,11 @@
-<suite name="CustomTestSuite" verbose="1">
-    <test name="SelectedTests">
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="FullTestSuite">
+    <test name="RunAllTests">
         <classes>
-            <class name="tests.DentsplyTest">
-                <methods>
-                    <include name="testAssertCompanyInformationLabels"/>
-                    <include name="testDashBoard"/>
-                </methods>
-            </class>
+            <class name="tests.DentsplyTest"/>
         </classes>
     </test>
 </suite>
+
+        <!-- Run All Tests -->
+        <!-- mvn test -DsuiteXmlFile=testng.xml -->
