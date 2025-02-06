@@ -26,7 +26,7 @@ public class DentsplyPage {
     }
 
     public void openHomePage() {
-        driver.get("https://alcon.ethixcloud.com/");
+        driver.get("https://alcon.ethixcloud.com/login");
         driver.manage().window().maximize();
         log.info("Opened homepage and maximized window.");
     }
@@ -367,6 +367,28 @@ public class DentsplyPage {
         }
     }
 
+    public void verifyQuestions_AlconTurkish() {
+        // List of questions and corresponding step numbers
+        List<String[]> questions = Arrays.asList(
+                new String[]{"3.1", "Üçüncü Tarafın rüşvet ve yolsuzluğu yasaklayan Davranış Kuralları ve/veya politikaları var mı?"},
+                new String[]{"3.3", "Üçüncü Tarafın tüm çalışanlara sunulan çıkar çatışmalarını açıklamak için belgelenmiş bir süreci var mı?"},
+                new String[]{"3.5", "Üçüncü Tarafın sağlık çalışanları ile herhangi bir etkileşim için belgelenmiş bir süreci var mı?"},
+                new String[]{"3.7", "Üçüncü Tarafın geçerli düzenlemelere uygun bir Muhasebe Kayıtları Politikası var mı?"},
+                new String[]{"3.9", "Üçüncü Taraf, tüm çalışanların anlayabileceği bir dilde endişelerini bildirmek için prosedürlere ve kanallara sahip mi?"},
+                new String[]{"3.11", "Üçüncü Taraf, çalışanları ve yönetim kurulu için düzenli rüşvetle mücadele eğitimi veriyor mu?"},
+                new String[]{"3.13", "Üçüncü Tarafın uyum faaliyetleri için özel bir kaynağı var mı?"}
+
+        );
+
+        // Loop through each question and verify
+        for (String[] question : questions) {
+            String stepNumber = question[0];
+            String questionText = question[1];
+
+            // Call your verification method for each question
+            selectAndCheckQuestionTitle(stepNumber, questionText);
+        }
+    }
 
     /**
      * SHAREHOLDERS

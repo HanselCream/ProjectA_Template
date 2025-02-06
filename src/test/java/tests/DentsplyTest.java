@@ -130,6 +130,7 @@ public class DentsplyTest extends BaseTest {
 
     }
 
+    //not run
     @Test
     public void testC_AlconSpanishComplete() {
         dentsplyPage.openHomePage();
@@ -163,6 +164,54 @@ public class DentsplyTest extends BaseTest {
         dentsplyPage.clickOnSaveProgress();
 
     }
+
+//not run
+    @Test
+    public void testC_AlconTurkishComplete() {
+        dentsplyPage.openHomePage();
+        browserUtil.waitABit(6000);
+        //dentsplyPage.emailAddress("vietnameseddq123@mail.com");
+        dentsplyPage.emailAddress("eb360.polish+v2turkish@gmail.com");
+        dentsplyPage.password("Password1!");
+        dentsplyPage.logInButton();
+        dentsplyPage.complianceDashBoard();
+        dentsplyPage.startButton();
+        browserUtil.waitABit(5000);
+        dentsplyPage.confirmLanguage("Turkish");
+        browserUtil.waitABit(3000);
+//        dentsplyPage.rightNavigation("Politikalar ve Eğitim");
+//        browserUtil.waitABit(3000);
+//        dentsplyPage.verifyQuestions_AlconTurkish();
+//        browserUtil.scrollToTop();
+//        browserUtil.waitABit(2000);
+//        dentsplyPage.selectAllMultipleChoice("Hayır");
+//
+//        browserUtil.scrollToTop();
+//        browserUtil.waitABit(8000);
+
+        dentsplyPage.addTextOnBlankFields();
+        browserUtil.waitABit(10000);
+
+        dentsplyPage.clickOnSaveProgress();
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void test1_Alcon_AllMultipleChoice() {
