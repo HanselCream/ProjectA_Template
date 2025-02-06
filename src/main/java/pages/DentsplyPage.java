@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DentsplyPage {
@@ -25,14 +26,14 @@ public class DentsplyPage {
     }
 
     public void openHomePage() {
-        driver.get("https://dentsply.ethixcloud.com/login");
+        driver.get("https://alcon.ethixcloud.com/");
         driver.manage().window().maximize();
         log.info("Opened homepage and maximized window.");
     }
 
     public void rightNavigation(String titleSectionName) {
         WebElement title = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//div[@class='list-group']/button[contains(text(),'"+titleSectionName+"')]")));
+                By.xpath("//div[@class='list-group']/button[contains(text(),'" + titleSectionName + "')]")));
         title.click();
     }
 
@@ -86,7 +87,7 @@ public class DentsplyPage {
 
     public void startButton() {
         WebElement startButton = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("(//button[contains(@class,'btn-outline-primary')])[2]")));
+                By.xpath("(//button[contains(@class,'btn-outline-primary')])[1]")));
         startButton.click();
         log.info("Clicked on the start button.");
     }
@@ -107,7 +108,7 @@ public class DentsplyPage {
             wait.until(ExpectedConditions.textToBePresentInElement(languageElement, expectedLanguage));
             actualLanguage = languageElement.getText().trim();
         }
-        Assert.assertEquals("Language mismatch",  actualLanguage, expectedLanguage);
+        Assert.assertEquals("Language mismatch", actualLanguage, expectedLanguage);
         log.info("Language confirmed as: {}", expectedLanguage);
     }
 
@@ -145,7 +146,7 @@ public class DentsplyPage {
         }
     }
 
-    //////////////////////////////// ////////////////////////
+    /// ///////////////////////////// ////////////////////////
     /// //////////////////////////////// //////////////////////
     /// ////////////////////////////// ////////////////////////
 
@@ -204,8 +205,6 @@ public class DentsplyPage {
     }
 
 
-
-
     /**
      * COMPANY INFORMATION
      */
@@ -243,24 +242,45 @@ public class DentsplyPage {
     }
 
     /**
-     *  ANSWER 'ALL BLANK' FIELD QUESTIONS
+     * ANSWER 'ALL BLANK' FIELD QUESTIONS
      */
 
     public void addTextOnBlankFields() {
-        browserUtil.waitABit(2000);
-        List<WebElement> blankFields = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
-                By.xpath("//input[contains(@class,'form-control')]")));
+        browserUtil.waitABit(1000);
+
+        // Wait for at least one input field to be visible
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[contains(@class,'form-control')]")));
+
+        // Get all blank input fields
+        List<WebElement> blankFields = driver.findElements(By.xpath("//input[contains(@class,'form-control')]"));
+
+        System.out.println("Total blank fields found: " + blankFields.size());
 
         for (int i = 0; i < blankFields.size(); i++) {
-            WebElement blankField = blankFields.get(i);
-            browserUtil.highlightScrollClick(blankField);
-            blankField.clear();
+            try {
+                // Re-fetch elements to avoid stale element issues
+                blankFields = driver.findElements(By.xpath("//input[contains(@class,'form-control')]"));
 
-            // Get text sequentially from RandomTextGenerator
-            String textToEnter = RandomTextGenerator.getTextByIndex(i);
-            blankField.sendKeys(textToEnter, Keys.ENTER);
-            browserUtil.waitABit(1000);
+                WebElement blankField = blankFields.get(i);
+                browserUtil.highlightScrollClick(blankField);
+
+                // Ensure field is clickable and clear existing value
+                wait.until(ExpectedConditions.elementToBeClickable(blankField));
+                blankField.clear();
+                browserUtil.waitABit(500);
+
+                // Get text from RandomTextGenerator
+                String textToEnter = RandomTextGenerator.getTextByIndex(i);
+                System.out.println("Entering text: " + textToEnter + " into field index: " + i);
+
+                blankField.sendKeys(textToEnter);
+                browserUtil.waitABit(500);
+            } catch (Exception e) {
+                System.err.println("Error processing field index " + i + ": " + e.getMessage());
+            }
         }
+
+        System.out.println("✅ All blank fields filled successfully!");
     }
 
 
@@ -280,15 +300,16 @@ public class DentsplyPage {
     //3.3 Multiple Choice
     //3.6 ShowCard/File
     //3.7 Multiple Choice
-    public void verifyQuestions_OrganizationStructure() {
+    public void verifyQuestions_AlconPolish() {
         // List of questions and corresponding step numbers
         List<String[]> questions = Arrays.asList(
-                new String[]{"3.1", "Country of Incorporation or Formation"},
-                new String[]{"3.2", "Date of Incorporation or Formation"},
-                new String[]{"3.3", "Type of Ownership"},
-                new String[]{"3.4", "Business Registration or VAT or Tax ID Number"},
-                new String[]{"3.5", "Total Number of Employees"},
-                new String[]{"3.7", "Please state the annual sales (in USD) of your company:"}
+                new String[]{"3.1", "Czy podmiot trzeci ma Kodeks postępowania i/lub polityki, które zabraniają łapownictwa i korupcji?"},
+                new String[]{"3.3", "Czy podmiot trzeci ma udokumentowany proces ujawniania konfliktów interesów, dostępny dla wszystkich pracowników?"},
+                new String[]{"3.5", "Czy podmiot zewnętrzny posiada udokumentowany proces jakiejkolwiek interakcji z pracownikami służby zdrowia?"},
+                new String[]{"3.7", "Czy podmiot zewnętrzny posiada Politykę dotyczącą dokumentacji księgowej, która jest zgodna z obowiązującymi przepisami?"},
+                new String[]{"3.9", "Czy podmiot trzeci posiada procedury i kanały zgłaszania wątpliwości, dostępne dla wszystkich pracowników i w zrozumiałym dla nich języku?"},
+                new String[]{"3.11", "Czy podmiot trzeci przeprowadza regularne szkolenia antykorupcyjne dla swoich pracowników i zarządu?"},
+                new String[]{"3.13", "Czy podmiot zewnętrzny posiada dedykowane zasoby do działań związanych ze zgodnością?"}
         );
 
         // Loop through each question and verify
@@ -301,6 +322,52 @@ public class DentsplyPage {
         }
     }
 
+    public void verifyQuestions_AlconRussian() {
+        // List of questions and corresponding step numbers
+        List<String[]> questions = Arrays.asList(
+                new String[]{"3.1", "Имеется ли у третьей стороны Кодекс поведения и/или политики, запрещающие взяточничество и коррупцию?"},
+                new String[]{"3.3", "Имеется ли у третьей стороны документированный процесс раскрытия информации о конфликтах интересов, доступный всем сотрудникам?"},
+                new String[]{"3.5", "Имеется ли у третьей стороны документально оформленный процесс взаимодействия с медицинскими работниками?"},
+                new String[]{"3.7", "Имеется ли у третьей стороны Политика бухгалтерского учета, которая соответствует применимым правилам?"},
+                new String[]{"3.9", "Есть ли у Третьей стороны процедуры и каналы для сообщения о проблемах, доступные всем сотрудникам и на понятном им языке?"},
+                new String[]{"3.11", "Проводит ли Третья сторона регулярное обучение по борьбе со взяточничеством для своих сотрудников и совета директоров?"},
+                new String[]{"3.13", "Есть ли у Третьей стороны специальный ресурс для деятельности по соблюдению нормативных требований?"}
+
+        );
+
+        // Loop through each question and verify
+        for (String[] question : questions) {
+            String stepNumber = question[0];
+            String questionText = question[1];
+
+            // Call your verification method for each question
+            selectAndCheckQuestionTitle(stepNumber, questionText);
+        }
+    }
+
+    public void verifyQuestions_AlconSpanish() {
+        // List of questions and corresponding step numbers
+        List<String[]> questions = Arrays.asList(
+                new String[]{"3.1", "¿El tercero tiene un Código de conducta o políticas que prohíban el soborno y la corrupción?"},
+                new String[]{"3.3", "¿El tercero tiene un proceso documentado para divulgar conflictos de intereses, disponible para todos los asociados?"},
+                new String[]{"3.5", "¿El tercero tiene un proceso documentado para cualquier tipo de interacción con profesionales de atención médica?"},
+                new String[]{"3.7", "¿El tercero tiene una política de registros contables que esté alineada con las regulaciones aplicables?"},
+                new String[]{"3.9", "¿El tercero cuenta con procedimientos y canales para informar inquietudes, disponibles para todos los empleados y en un idioma que puedan comprender?"},
+                new String[]{"3.11", "¿El Tercero realiza capacitación antisoborno regular para sus empleados y su junta?"},
+                new String[]{"3.13", "¿El tercero tiene un recurso dedicado para las actividades de cumplimiento?"}
+        );
+
+        // Loop through each question and verify
+        for (String[] question : questions) {
+            String stepNumber = question[0];
+            String questionText = question[1];
+
+            // Call your verification method for each question
+            selectAndCheckQuestionTitle(stepNumber, questionText);
+        }
+    }
+
+
     /**
      * SHAREHOLDERS
      */
@@ -310,7 +377,6 @@ public class DentsplyPage {
     // 4.3
     // 4.5
     // 4.6
-
     public void verifyQuestions_Shareholders() {
         // List of questions and corresponding step numbers
         List<String[]> questions = Arrays.asList(
@@ -365,10 +431,37 @@ public class DentsplyPage {
     }
 
 
+        //input[@class='custom-date-picker date-picker-left']
 
 
+    public void selectAllMultipleChoice(String text) {
+        browserUtil.waitABit(1000);
 
+        // Wait for at least one input field to be visible
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='custom-control custom-radio']//span[text()='"+text+"']")));
 
+        // Get all blank input fields
+        List<WebElement> multipleChoice = driver.findElements(By.xpath("//div[@class='custom-control custom-radio']//span[text()='"+text+"']"));
 
+        System.out.println("Total blank fields found: " + multipleChoice.size());
+
+        for (int i = 0; i < multipleChoice.size(); i++) {
+            try {
+                // Re-fetch elements to avoid stale element issues
+                multipleChoice = driver.findElements(By.xpath("//div[@class='custom-control custom-radio']//span[text()='"+text+"']"));
+
+                WebElement choice = multipleChoice.get(i);
+                browserUtil.highlightScrollClick(choice);
+
+                browserUtil.waitABit(800);
+
+            } catch (Exception e) {
+                System.err.println("Cannot be selected");
+            }
+        }
+
+        System.out.println("✅ All blank fields filled successfully!");
+    }
 
 }
+

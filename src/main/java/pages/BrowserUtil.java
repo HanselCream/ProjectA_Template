@@ -39,6 +39,12 @@ public class BrowserUtil {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
     }
 
+    public void scrollToTop() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0, 0);"); // Scroll to the top of the page
+
+    }
+
     // 4. Highlight, Scroll, and Click
     public void highlightScrollClick(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", element);

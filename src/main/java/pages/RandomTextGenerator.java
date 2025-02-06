@@ -4,13 +4,14 @@ import java.util.Random;
 
 public class RandomTextGenerator {
     private static final String[] RANDOM_TEXTS = {
-            "1Radam Technologies", "2Radam Solutions", "3Alpha Innovations Address",
-            "4Rosario Cavite", "5Luzon Philippines", "641176",
-            "7792677851", "8www.hanswebsitetest.com", "9L9OCAL@GMAIL.COM",
-            "Filipino", "Makati", "Cebu", "D13avao",
-            "1414110", "1ax12344", "16", "17",
-            "18", "HansTEST", "HansSurname", "21TitleOfHans", "RadamTechnologies"
-    };
+                    "1TechNova Systems", "2TechNova Solutions", "3Beta Innovations Address",
+                    "4Laguna City", "91234567", "info@technova.com",
+                    "8www.technovawebsite.com", "Laguna", "777-7777",
+                    "10", "Manila", "Systems", "8765432109",
+                    "SystemsDavao", "davaosystems", "54321-123", "davaotech@yahoo.com",
+                    "Davao Laguna", "John Doe", "John Smith", "25TechLead", "98765-432", "johndoe@test.com",
+                    "Laguna", "Jane Doe", "Jane Party", "Development"
+            };
 
     public static String getTextByIndex(int index) {
         if (index < RANDOM_TEXTS.length) {
