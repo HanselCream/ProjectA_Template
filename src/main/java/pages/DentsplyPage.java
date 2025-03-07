@@ -41,7 +41,7 @@ public class DentsplyPage {
         WebElement saveButton = wait.until((ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='btn btn-outline-primary']"))));
         browserUtil.waitABit(2000);
         browserUtil.highlightScrollClick(saveButton);
-        browserUtil.waitABit(12000);
+        browserUtil.waitABit(20000);
     }
 
 
@@ -377,6 +377,30 @@ public class DentsplyPage {
                 new String[]{"3.9", "Üçüncü Taraf, tüm çalışanların anlayabileceği bir dilde endişelerini bildirmek için prosedürlere ve kanallara sahip mi?"},
                 new String[]{"3.11", "Üçüncü Taraf, çalışanları ve yönetim kurulu için düzenli rüşvetle mücadele eğitimi veriyor mu?"},
                 new String[]{"3.13", "Üçüncü Tarafın uyum faaliyetleri için özel bir kaynağı var mı?"}
+
+        );
+
+        // Loop through each question and verify
+        for (String[] question : questions) {
+            String stepNumber = question[0];
+            String questionText = question[1];
+
+            // Call your verification method for each question
+            selectAndCheckQuestionTitle(stepNumber, questionText);
+        }
+    }
+
+
+    public void verifyQuestions_AlconBrazil() {
+        // List of questions and corresponding step numbers
+        List<String[]> questions = Arrays.asList(
+                new String[]{"3.1", "O terceiro tem um Código de Conduta e/ou políticas que proíbem o suborno e a corrupção?"},
+                new String[]{"3.3", "O terceiro tem um processo documentado para divulgar conflitos de interesses, disponível para todos os colaboradores?"},
+                new String[]{"3.5", "O terceiro tem um processo documentado para qualquer tipo de interação com profissionais de saúde?"},
+                new String[]{"3.7", "O Terceiro tem uma Política de Registros Contábeis, que está alinhada com os regulamentos aplicáveis?"},
+                new String[]{"3.9", "O terceiro tem procedimentos e canais para relatar preocupações, disponíveis para todos os funcionários e em linguagem que eles possam entender?"},
+                new String[]{"3.11", "O terceiro realiza treinamento antissuborno regular para seus funcionários e conselhos?"},
+                new String[]{"3.13", "O terceiro tem um recurso dedicado para atividades de conformidade?"}
 
         );
 

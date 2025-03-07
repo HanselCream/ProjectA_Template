@@ -7,26 +7,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import utils.BaseTest;
 
 
-
-// mvn -Dtest=DentsplyTest test
-// mvn -Dtest=DentsplyTest#testLogin test
-// allure: mvn -Dtest=tests.DentsplyTest test
-
-//mvn test -Dtest=DentsplyTest#testAssertCompanyInformationLabels
-//mvn test -Dtest=DentsplyTest#testB_Organizational
-
-//RUN ON TERMINAL
-//Use Maven to run the TestNG suite:
-// mvn test -DsuiteXmlFile=testng.xml
-
-//OR, if using JUnit Runner for TestNG, you can also run:
-//mvn surefire:test
-
-//6️⃣ View TestNG Reports
-//open target/surefire-reports/emailable-report.html
-//start target\surefire-reports\index.html
-
-
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DentsplyTest extends BaseTest {
 
@@ -54,15 +34,16 @@ public class DentsplyTest extends BaseTest {
     public void test0_AllBlankFieldsAnswer() {
         dentsplyPage.openHomePage();
         browserUtil.waitABit(6000);
-//        dentsplyPage.emailAddress("vietnameseddq123@mail.com");
-//        dentsplyPage.password("Password1!");
 
         dentsplyPage.emailAddress("vietnameseddq123@mail.com");
         dentsplyPage.password("Password1!");
+
         dentsplyPage.logInButton();
         dentsplyPage.complianceDashBoard();
         dentsplyPage.startButton();
+
         browserUtil.waitABit(5000);
+
         dentsplyPage.confirmLanguage("English");
         browserUtil.waitABit(3000);
         dentsplyPage.addTextOnBlankFields();
@@ -74,13 +55,13 @@ public class DentsplyTest extends BaseTest {
     public void testB_Organizational() {
         dentsplyPage.openHomePage();
         browserUtil.waitABit(6000);
-        dentsplyPage.emailAddress("vietnameseddq123@mail.com");
+        dentsplyPage.emailAddress("eb360.polish+spanishtest@gmail.com");
         dentsplyPage.password("Password1!");
         dentsplyPage.logInButton();
         dentsplyPage.complianceDashBoard();
         dentsplyPage.startButton();
         browserUtil.waitABit(5000);
-        dentsplyPage.confirmLanguage("English");
+        dentsplyPage.confirmLanguage("Spanish");
         browserUtil.waitABit(3000);
         dentsplyPage.rightNavigation("Organizational Structure");
 
@@ -188,6 +169,36 @@ public class DentsplyTest extends BaseTest {
 //
 //        browserUtil.scrollToTop();
 //        browserUtil.waitABit(8000);
+
+        dentsplyPage.addTextOnBlankFields();
+        browserUtil.waitABit(10000);
+
+        dentsplyPage.clickOnSaveProgress();
+
+    }
+
+    @Test
+    public void testC_AlconBrazilComplete__SPANISHREALLY() {
+        dentsplyPage.openHomePage();
+        browserUtil.waitABit(6000);
+        //dentsplyPage.emailAddress("vietnameseddq123@mail.com");
+        dentsplyPage.emailAddress("eb360.polish+spanishtest@gmail.com");
+        dentsplyPage.password("Password1!");
+        dentsplyPage.logInButton();
+        dentsplyPage.complianceDashBoard();
+        dentsplyPage.startButton();
+        browserUtil.waitABit(5000);
+        dentsplyPage.confirmLanguage("Spanish");
+        browserUtil.waitABit(3000);
+        dentsplyPage.rightNavigation("Políticas y capacitación");
+        browserUtil.waitABit(3000);
+        dentsplyPage.verifyQuestions_AlconSpanish();
+        browserUtil.scrollToTop();
+        browserUtil.waitABit(2000);
+        dentsplyPage.selectAllMultipleChoice("No");
+
+        browserUtil.scrollToTop();
+        browserUtil.waitABit(8000);
 
         dentsplyPage.addTextOnBlankFields();
         browserUtil.waitABit(10000);
